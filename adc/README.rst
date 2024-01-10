@@ -30,8 +30,7 @@ the ``stm32f3_disco`` board can be easily adjusted for other boards.
 Configuration of channels (settings like gain, reference, or acquisition time)
 also needs to be specified in devicetree, in ADC controller child nodes. Also
 the ADC resolution and oversampling setting (if used) need to be specified
-there. See :zephyr_file:`boards/stm32f3_disco.overlay
-<samples/drivers/adc/boards/nrf52840dk_nrf52840.overlay>` for an example of
+there. See :zephyr_file:`boards/stm32f3_disco.overlay for an example of
 such setup.
 
 Building and Running for STM32F3 Discovery

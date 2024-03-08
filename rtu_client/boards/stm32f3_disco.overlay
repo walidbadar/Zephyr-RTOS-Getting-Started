@@ -1,0 +1,16 @@
+/*
+ * Copyright (c) 2024 WB LAB
+ *
+ */
+
+&usart2 {
+	status = "okay";
+	current-speed = <4800>;
+
+	modbus0 {
+		compatible = "zephyr,modbus-serial";
+		status = "okay";
+		de-gpios = <&gpioa 0 GPIO_ACTIVE_LOW>;
+		de-gpios = <&gpio0 5 GPIO_ACTIVE_HIGH>;
+	};
+};

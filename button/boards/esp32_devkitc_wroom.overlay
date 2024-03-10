@@ -1,0 +1,26 @@
+/*
+ * Copyright (c) 2022 Espressif Systems (Shanghai) Co., Ltd.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+/ {
+	model = "Espressif ESP32-DEVKITC-WROOM-32D";
+	compatible = "espressif,esp32";
+
+	aliases {
+		sw0 = &btn0;
+	};
+
+	buttons {
+		compatible = "gpio-keys";
+		btn0: btn_0 {
+			gpios = <&gpio0 13 (GPIO_PULL_UP | GPIO_ACTIVE_HIGH)>;
+			label = "User Button";
+		};
+	};
+};
+
+&wifi {
+	status = "okay";
+};

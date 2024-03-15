@@ -1,2 +1,2 @@
 # ZephyrRTOS_Learning
-Zephyr Getting Started
+Zephyr Project Getting Started

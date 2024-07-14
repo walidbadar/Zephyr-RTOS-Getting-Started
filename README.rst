@@ -1,162 +1,166 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Getting Started Guide</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        h1, h2, h3, h4, h5, h6 {
-            color: #333;
-        }
-        pre {
-            background-color: #f4f4f4;
-            padding: 10px;
-            border: 1px solid #ddd;
-            overflow-x: auto;
-        }
-        code {
-            background-color: #f9f2f4;
-            padding: 2px 4px;
-            font-size: 90%;
-            color: #c7254e;
-            border-radius: 4px;
-        }
-        .tabs {
-            margin-top: 20px;
-        }
-        .group-tab, .group-tab-content {
-            display: none;
-        }
-        .group-tab:target + .group-tab-content {
-            display: block;
-        }
-        .note {
-            background-color: #eef;
-            border-left: 4px solid #88f;
-            padding: 10px;
-            margin-bottom: 10px;
-        }
-        .list-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-        }
-        .list-table th, .list-table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        .list-table th {
-            background-color: #f2f2f2;
-        }
-    </style>
-</head>
-<body>
+.. _getting_started:
 
-<h1>Getting Started Guide</h1>
+Getting Started Guide
+#####################
 
-<p>Follow this guide to:</p>
-<ul>
-    <li>Set up a command-line Zephyr development environment on Ubuntu, macOS, or Windows</li>
-    <li>Get the source code</li>
-    <li>Build, flash, and run a sample application</li>
-</ul>
+Follow this guide to:
 
-<h2 id="host_setup">Install dependencies</h2>
+- Set up a command-line Zephyr development environment on Ubuntu, macOS, or
+  Windows
+- Get the source code
+- Build, flash, and run a sample application
 
-<p>Next, you'll install some host dependencies using your package manager.</p>
+.. _host_setup:
 
-<p>The current minimum required version for the main dependencies are:</p>
+Install dependencies
+********************
 
-<table class="list-table">
-    <thead>
-        <tr>
-            <th>Tool</th>
-            <th>Min. Version</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><a href="https://cmake.org/">CMake</a></td>
-            <td>3.20.5</td>
-        </tr>
-        <tr>
-            <td><a href="https://www.python.org/">Python</a></td>
-            <td>3.10</td>
-        </tr>
-        <tr>
-            <td><a href="https://www.devicetree.org/">Devicetree compiler</a></td>
-            <td>1.4.6</td>
-        </tr>
-    </tbody>
-</table>
+Next, you'll install some host dependencies using your package manager.
 
-<div class="tabs">
-    <h3>Ubuntu</h3>
+The current minimum required version for the main dependencies are:
 
-    <h4 id="install_dependencies_ubuntu">Install dependencies on Ubuntu</h4>
+.. list-table::
+   :header-rows: 1
 
-    <ol>
-        <li>If using an Ubuntu version older than 22.04, it is necessary to add extra repositories to meet the minimum required versions for the main dependencies listed above. In that case, download, inspect and execute the Kitware archive script to add the Kitware APT repository to your sources list. A detailed explanation of <code>kitware-archive.sh</code> can be found here <a href="https://apt.kitware.com/">kitware third-party apt repository</a>:</li>
+* - Tool
+ - Min. Version
 
-        <pre><code>wget https://apt.kitware.com/kitware-archive.sh
-sudo bash kitware-archive.sh</code></pre>
+* - CMake !(https://cmake.org/)
 
-        <li>Use <code>apt</code> to install the required dependencies:</li>
+* - Python <https://www.python.org/>_
+ - 3.10
 
-        <pre><code>sudo apt install --no-install-recommends git cmake ninja-build gperf \
-  ccache dfu-util device-tree-compiler wget \
-  python3-dev python3-pip python3-setuptools python3-tk python3-wheel xz-utils file \
-  make gcc gcc-multilib g++-multilib libsdl2-dev libmagic1</code></pre>
+* - Devicetree compiler <https://www.devicetree.org/>_
+ - 1.4.6
 
-        <li>Verify the versions of the main dependencies installed on your system by entering:</li>
+Get Zephyr and install Python dependencies
+******************************************
 
-        <pre><code>cmake --version
-python3 --version
-dtc --version</code></pre>
+Next, clone Zephyr and its :ref:modules <modules> into a new :ref:west
+<west> workspace named :file:zephyrproject. You'll also install Zephyr's
+additional Python dependencies.
 
-        <p>Check those against the versions in the table in the beginning of this section. Refer to the <a href="#installation_linux">installation_linux</a> page for additional information on updating the dependencies manually.</p>
-    </ol>
+Windows
 
-    <h3>macOS</h3>
+#. Open a cmd.exe terminal window **as a regular user**
 
-    <h4 id="install_dependencies_macos">Install dependencies on macOS</h4>
+#. Install west:
 
-    <ol>
-        <li>Install <a href="https://brew.sh/">Homebrew</a>:</li>
+   .. code-block:: bat
 
-        <pre><code>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code></pre>
+      pip3 install -U west
 
-        <li>After the Homebrew installation script completes, follow the on-screen instructions to add the Homebrew installation to the path.</li>
+#. Get the Zephyr source code:
 
-        <ul>
-            <li>On macOS running on Apple Silicon, this is achieved with:</li>
+   .. code-block:: bat
 
-            <pre><code>(echo; echo 'eval "$(/opt/homebrew/bin/brew shellenv)"') >> ~/.zprofile
-source ~/.zprofile</code></pre>
+      cd %HOMEPATH%
+      west init zephyrproject
+      cd zephyrproject
+      west update
 
-            <li>On macOS running on Intel, use the command for Apple Silicon, but replace <code>/opt/homebrew/</code> with <code>/usr/local/</code>.</li>
-        </ul>
+#. Export a :ref:Zephyr CMake package <cmake_pkg>. This allows CMake to
+   automatically load boilerplate code required for building Zephyr
+   applications.
 
-        <li>Use <code>brew</code> to install the required dependencies:</li>
+   .. code-block:: bat
 
-        <pre><code>brew install cmake ninja gperf python3 ccache qemu dtc libmagic wget openocd</code></pre>
+      west zephyr-export
 
-        <li>Add the Homebrew Python folder to the path, in order to be able to execute <code>python</code> and <code>pip</code> as well <code>python3</code> and <code>pip3</code>.</li>
+#. Zephyr's `scripts\requirements.txt file declares additional Python
+   dependencies. Install them with `pip3.
 
-        <pre><code>(echo; echo 'export PATH="'$(brew --prefix)'/opt/python/libexec/bin:$PATH"') >> ~/.zprofile
-source ~/.zprofile</code></pre>
-    </ol>
+   .. code-block:: bat
 
-    <h3>Windows</h3>
+      pip3 install -r %HOMEPATH%\zephyrproject\zephyr\scripts\requirements.txt
 
-    <p class="note">
-        Due to issues finding executables, the Zephyr Project doesn't currently support application flashing using the <a href="https://msdn.microsoft.com/en-us/commandline/wsl/install_guide">Windows Subsystem for Linux (WSL)</a> (WSL).
-        Therefore, we don't recommend using WSL when getting started.
-    </p>
 
-    <p>These instructions must be run in a <code>cmd.exe</code> command prompt terminal window. In modern version of Windows (10 and later) it is recommended to install the Windows Terminal application from the Microsoft Store. The required commands differ on PowerShell.</p>
+Install the Zephyr SDK
+**********************
 
-    <p>These instructions rely on <a href="https://chocolatey.org/">Chocolatey</a>. If Chocolatey isn't an option, you can install dependencies from their respective websites and ensure the command line tools are on your <code>PATH</code> <a href="#env_vars">environment variable</a>.</p>
+The :ref:Zephyr Software Development Kit (SDK) <toolchain_zephyr_sdk>
+contains toolchains for each of Zephyr's supported architectures, which
+include a compiler, assembler, linker and other programs required to build
+Zephyr applications.
+
+It also contains additional host tools, such as custom QEMU and OpenOCD builds
+that are used to emulate, flash and debug Zephyr applications.
+
+.. include:: ../toolchains/zephyr_sdk.rst
+   :start-after: toolchain_zephyr_sdk_install_start
+   :end-before: toolchain_zephyr_sdk_install_end
+
+.. _getting_started_run_sample:
+
+Build the Blinky Sample
+***********************
+
+.. note::
+
+   :zephyr:code-sample:blinky is compatible with most, but not all, :ref:boards. If your board
+   does not meet Blinky's :ref:blinky-sample-requirements, then
+   :ref:hello_world is a good alternative.
+
+   If you are unsure what name west uses for your board, `west boards
+   can be used to obtain a list of all boards Zephyr supports.
+
+Build the :zephyr:code-sample:blinky with :ref:west build <west-building>, changing
+`<your-board-name> appropriately for your board:
+
+.. tabs::
+
+   .. group-tab:: Ubuntu
+
+      .. code-block:: bash
+
+         cd ~/zephyrproject/zephyr
+         west build -p always -b <your-board-name> samples/basic/blinky
+
+   .. group-tab:: macOS
+
+      .. code-block:: bash
+
+         cd ~/zephyrproject/zephyr
+         west build -p always -b <your-board-name> samples/basic/blinky
+
+   .. group-tab:: Windows
+
+      .. code-block:: bat
+
+         cd %HOMEPATH%\zephyrproject\zephyr
+         west build -p always -b <your-board-name> samples\basic\blinky
+
+The `-p always option forces a pristine build, and is recommended for new
+users. Users may also use the `-p auto option, which will use
+heuristics to determine if a pristine build is required, such as when building
+another sample.
+
+.. note::
+
+   A board may contain one or multiple SoCs, Also, each SoC may contain one or
+   more CPU clusters.
+   When building for such boards it is necessary to specify the SoC or CPU
+   cluster for which the sample must be built.
+   For example to build :zephyr:code-sample:blinky for the `cpuapp core on
+   the :ref:nRF5340DK <nrf5340dk_nrf5340> the board must be provided as:
+   `nrf5340dk/nrf5340/cpuapp. See also :ref:board_terminology for more
+   details.
+
+Flash the Sample
+****************
+
+Connect your board, usually via USB, and turn it on if there's a power switch.
+If in doubt about what to do, check your board's page in :ref:boards.
+
+Then flash the sample using :ref:west flash <west-flashing>:
+
+.. code-block:: shell
+
+   west flash
+
+Useful links to Learn The Zephyr Project.
+=========================================
+* 🔗 Tutorial: Mastering Zephyr Driver Development: https://lnkd.in/d_4wUpdk
+* 🔗 ESP32 on Zephyr OS: https://lnkd.in/deqTWkdy
+* 🔗 nRF Connect SDK Fundamentals course: https://lnkd.in/ds_urNDj
+* 🔗 Memfault Article: https://lnkd.in/d4VFwHsM

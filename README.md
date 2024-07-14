@@ -6,43 +6,11 @@ Getting Started Guide
 Follow this guide to:
 
 - Set up a command-line Zephyr development environment on Ubuntu, macOS, or
-  Windows (instructions for other Linux distributions are discussed in
-  :ref:`installation_linux`)
+  Windows
 - Get the source code
 - Build, flash, and run a sample application
 
 .. _host_setup:
-
-Select and Update OS
-********************
-
-Click the operating system you are using.
-
-.. tabs::
-
-   .. group-tab:: Ubuntu
-
-      This guide covers Ubuntu version 20.04 LTS and later.
-
-      .. code-block:: bash
-
-         sudo apt update
-         sudo apt upgrade
-
-   .. group-tab:: macOS
-
-      On macOS Mojave or later, select *System Preferences* >
-      *Software Update*. Click *Update Now* if necessary.
-
-      On other versions, see `this Apple support topic
-      <https://support.apple.com/en-us/HT201541>`_.
-
-   .. group-tab:: Windows
-
-      Select *Start* > *Settings* > *Update & Security* > *Windows Update*.
-      Click *Check for updates* and install any that are available.
-
-.. _install-required-tools:
 
 Install dependencies
 ********************

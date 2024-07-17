@@ -23,15 +23,11 @@ The current minimum required version for the main dependencies are:
    :header-rows: 1
 
 * - Tool
- - Min. Version
+* - [CMake](https://cmake.org/)
 
-* - CMake !(https://cmake.org/)
+* - [Python](https://www.python.org/)
 
-* - Python <https://www.python.org/>_
- - 3.10
-
-* - Devicetree compiler <https://www.devicetree.org/>_
- - 1.4.6
+* - [Devicetree compiler](https://www.devicetree.org/)
 
 Get Zephyr and install Python dependencies
 ******************************************

@@ -1,5 +1,8 @@
-.. raw:: html
+.. image:: https://www.zephyrproject.org/wp-content/uploads/2023/03/Zephyr_color-13.png
+   :alt: Zephyr
+   :align: center
 
+.. raw:: html
    <a href="https://www.zephyrproject.org">
      <p align="center">
        <picture>

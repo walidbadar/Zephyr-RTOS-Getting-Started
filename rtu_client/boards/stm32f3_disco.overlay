@@ -11,6 +11,5 @@
 		compatible = "zephyr,modbus-serial";
 		status = "okay";
 		de-gpios = <&gpioa 0 GPIO_ACTIVE_LOW>;
-		de-gpios = <&gpio0 5 GPIO_ACTIVE_HIGH>;
 	};
 };
